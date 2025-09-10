@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kisan Setu - Farmer Profile</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'nature-green': '#8FBC8F',
+            'soft-green': '#E8F5E8',
+            'warm-beige': '#F5F5DC',
+            'pastel-yellow': '#FFFACD',
+            'earth-brown': '#8B7355'
+          },
+          fontFamily: {
+            'friendly': ['Inter', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-soft-green min-h-screen">
+  <!-- Sticky Navbar -->
+  <nav class="sticky top-0 z-50 bg-white shadow-md border-b-2 border-nature-green">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <!-- Logo -->
+        <div class="flex items-center">
+          <i class="fas fa-seedling text-nature-green text-2xl mr-3"></i>
+          <h1 class="text-2xl font-bold text-earth-brown">Kisan Setu</h1>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="hidden md:flex space-x-8">
+          <a href="#" class="flex items-center text-earth-brown hover:text-nature-green transition-colors duration-200">
+            <i class="fas fa-cloud-sun mr-2"></i>Weather
+          </a>
+          <a href="#" class="flex items-center text-earth-brown hover:text-nature-green transition-colors duration-200">
+            <i class="fas fa-chart-line mr-2"></i>Dashboard
+          </a>
+          <a href="#" class="flex items-center text-earth-brown hover:text-nature-green transition-colors duration-200">
+            <i class="fas fa-robot mr-2"></i>AI Chat
+          </a>
+          <a href="#" class="flex items-center text-earth-brown hover:text-nature-green transition-colors duration-200">
+            <i class="fas fa-question-circle mr-2"></i>Help
+          </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden">
+          <button id="mobile-menu-btn" class="text-earth-brown hover:text-nature-green">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        <a href="#" class="block px-3 py-2 text-earth-brown hover:text-nature-green">
+          <i class="fas fa-cloud-sun mr-2"></i>Weather
+        </a>
+        <a href="#" class="block px-3 py-2 text-earth-brown hover:text-nature-green">
+          <i class="fas fa-chart-line mr-2"></i>Dashboard
+        </a>
+        <a href="#" class="block px-3 py-2 text-earth-brown hover:text-nature-green">
+          <i class="fas fa-robot mr-2"></i>AI Chat
+        </a>
+        <a href="#" class="block px-3 py-2 text-earth-brown hover:text-nature-green">
+          <i class="fas fa-question-circle mr-2"></i>Help
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Profile Section -->
+    <div class="bg-warm-beige rounded-2xl p-8 mb-8 card-shadow">
+      <div class="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6">
+        <div class="w-24 h-24 bg-nature-green rounded-full flex items-center justify-center">
+          <i class="fas fa-user text-white text-3xl"></i>
+        </div>
+        <div class="text-center md:text-left">
+          <h2 class="text-3xl font-bold text-earth-brown mb-2">Rajesh Kumar</h2>
+          <p class="text-lg text-gray-700 flex items-center justify-center md:justify-start">
+            <i class="fas fa-map-marker-alt text-nature-green mr-2"></i>
+            Village Rampur, Haryana, India
+          </p>
+          <p class="text-gray-600 mt-2">Organic Farmer | 15 years experience</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Farmer Details Section -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <!-- Soil Type -->
+      <div class="bg-white rounded-xl p-6 card-shadow">
+        <div class="flex items-center mb-4">
+          <div class="w-12 h-12 bg-earth-brown rounded-lg flex items-center justify-center mr-4">
+            <i class="fas fa-mountain text-white text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-earth-brown">Soil Type</h3>
+        </div>
+        <div class="space-y-2">
+          <p class="text-gray-700"><strong>Primary:</strong> Loamy Soil</p>
+          <p class="text-gray-700"><strong>pH Level:</strong> 6.8 (Neutral)</p>
+          <p class="text-gray-700"><strong>Fertility:</strong> High Organic Matter</p>
+        </div>
+      </div>
+
+      <!-- Irrigation -->
+      <div class="bg-white rounded-xl p-6 card-shadow">
+        <div class="flex items-center mb-4">
+          <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mr-4">
+            <i class="fas fa-tint text-white text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-earth-brown">Irrigation</h3>
+        </div>
+        <div class="space-y-2">
+          <p class="text-gray-700"><strong>Method:</strong> Drip Irrigation</p>
+          <p class="text-gray-700"><strong>Water Source:</strong> Tube Well</p>
+          <p class="text-gray-700"><strong>Coverage:</strong> 5 Acres</p>
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <div class="bg-white rounded-xl p-6 card-shadow">
+        <div class="flex items-center mb-4">
+          <div class="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mr-4">
+            <i class="fas fa-tools text-white text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-earth-brown">Tools Owned</h3>
+        </div>
+        <div class="space-y-2">
+          <p class="text-gray-700">• Tractor (Mahindra 575)</p>
+          <p class="text-gray-700">• Rotavator</p>
+          <p class="text-gray-700">• Seed Drill</p>
+          <p class="text-gray-700">• Harvester (Shared)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Crops Section -->
+    <div class="bg-white rounded-2xl p-8 card-shadow">
+      <h2 class="text-2xl font-bold text-earth-brown mb-6 flex items-center">
+        <i class="fas fa-leaf text-nature-green mr-3"></i>
+        Current Crops
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- Wheat -->
+        <div class="bg-pastel-yellow rounded-xl p-6 card-shadow hover:shadow-lg transition-shadow duration-200">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-3">
+              <i class="fas fa-wheat-awn text-white text-2xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-earth-brown">Wheat</h3>
+          </div>
+          <div class="space-y-2 text-sm">
+            <p class="text-gray-700"><strong>Planted:</strong> Nov 15, 2024</p>
+            <p class="text-gray-700"><strong>Area:</strong> 2 Acres</p>
+            <p class="text-gray-700"><strong>Variety:</strong> HD-2967</p>
+            <div class="mt-3">
+              <div class="flex justify-between text-xs text-gray-600 mb-1">
+                <span>Growth Progress</span><span>75%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="progress-bar h-2 rounded-full" style="width: 75%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rice -->
+        <div class="bg-soft-green rounded-xl p-6 card-shadow hover:shadow-lg transition-shadow duration-200">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
+              <i class="fas fa-seedling text-white text-2xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-earth-brown">Rice</h3>
+          </div>
+          <div class="space-y-2 text-sm">
+            <p class="text-gray-700"><strong>Planted:</strong> Jun 20, 2024</p>
+            <p class="text-gray-700"><strong>Area:</strong> 1.5 Acres</p>
+            <p class="text-gray-700"><strong>Variety:</strong> Basmati 1121</p>
+            <div class="mt-3">
+              <div class="flex justify-between text-xs text-gray-600 mb-1">
+                <span>Growth Progress</span><span>90%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="progress-bar h-2 rounded-full" style="width: 90%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mustard -->
+        <div class="bg-yellow-100 rounded-xl p-6 card-shadow hover:shadow-lg transition-shadow duration-200">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-yellow-600 rounded-full flex items-center justify-center mx-auto mb-3">
+              <i class="fas fa-spa text-white text-2xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-earth-brown">Mustard</h3>
+          </div>
+          <div class="space-y-2 text-sm">
+            <p class="text-gray-700"><strong>Planted:</strong> Oct 10, 2024</p>
+            <p class="text-gray-700"><strong>Area:</strong> 1 Acre</p>
+            <p class="text-gray-700"><strong>Variety:</strong> Pusa Bold</p>
+            <div class="mt-3">
+              <div class="flex justify-between text-xs text-gray-600 mb-1">
+                <span>Growth Progress</span><span>60%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="progress-bar h-2 rounded-full" style="width: 60%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sugarcane -->
+        <div class="bg-green-100 rounded-xl p-6 card-shadow hover:shadow-lg transition-shadow duration-200">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-3">
+              <i class="fas fa-leaf text-white text-2xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-earth-brown">Sugarcane</h3>
+          </div>
+          <div class="space-y-2 text-sm">
+            <p class="text-gray-700"><strong>Planted:</strong> Mar 5, 2024</p>
+            <p class="text-gray-700"><strong>Area:</strong> 0.5 Acres</p>
+            <p class="text-gray-700"><strong>Variety:</strong> Co-0238</p>
+            <div class="mt-3">
+              <div class="flex justify-between text-xs text-gray-600 mb-1">
+                <span>Growth Progress</span><span>85%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="progress-bar h-2 rounded-full" style="width: 85%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+</body>
+</html>

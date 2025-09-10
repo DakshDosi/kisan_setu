@@ -3,7 +3,9 @@ from googletrans import Translator
 import requests
 import os
 
-app = Flask(__name__,template_folder='backend',static_folder='backend')
+app = Flask(__name__,
+            template_folder='backend/templates',
+            static_folder='backend/static')
 translator = Translator()
 
 # Load Gemini API key from environment variable

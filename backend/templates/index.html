@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kesan Setu — Voice Help for Farmers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+  </head>
+  <body>
+    <div id="custom-cursor" class="custom-cursor" aria-hidden="true"></div>
+    <nav class="topnav">
+      <div class="nav-inner container">
+        <div class="brand">
+          <span class="brand-logo">🌱</span>
+          <span class="brand-name">Kisan Setu</span>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#chat">AI Chat</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="bg-aurora" aria-hidden="true">
+      <div class="aurora a1"></div>
+      <div class="aurora a2"></div>
+      <div class="aurora a3"></div>
+    </div>
+
+    <main class="container" id="chat">
+      <section class="hero">
+        <h1 class="hero-title">Ask your farming doubts by voice</h1>
+        <p class="hero-sub">Speak in your language — get answers you can hear.</p>
+      </section>
+
+      <section class="card chat-card" id="chat-card">
+        <h3 class="section-title">AI Chat</h3>
+        <div class="activity-bar" id="activity-bar" hidden>
+          <div class="bar-segment"></div>
+          <div class="bar-segment"></div>
+          <div class="bar-segment"></div>
+        </div>
+        <div class="controls-row">
+          <div class="field">
+            <label for="language">Language</label>
+            <select id="language" class="select">
+              <option value="hi-IN">Hindi (hi-IN)</option>
+              <option value="bn-IN">Bengali (bn-IN)</option>
+              <option value="te-IN">Telugu (te-IN)</option>
+              <option value="ta-IN">Tamil (ta-IN)</option>
+              <option value="mr-IN">Marathi (mr-IN)</option>
+              <option value="pa-IN">Punjabi (pa-IN)</option>
+              <option value="gu-IN">Gujarati (gu-IN)</option>
+              <option value="kn-IN">Kannada (kn-IN)</option>
+              <option value="ml-IN">Malayalam (ml-IN)</option>
+              <option value="or-IN">Odia (or-IN)</option>
+              <option value="en-IN">English (en-IN)</option>
+            </select>
+          </div>
+
+          <div class="status">
+            <span id="mic-indicator" class="dot"></span>
+            <span id="status-text">Idle</span>
+          </div>
+        </div>
+
+        <div class="transcript">
+          <label>Your question</label>
+          <div class="transcript-box" id="transcript-box" aria-live="polite"></div>
+          <textarea id="text-input" class="text-input" rows="3" placeholder="Or type your question here..."></textarea>
+        </div>
+
+        <div class="actions">
+          <button id="btn-start" class="btn btn-primary">
+            <span class="btn-icon">🎤</span>
+            <span>Start Listening</span>
+            <span class="mic-pulse" aria-hidden="true"></span>
+          </button>
+          <div class="mic-bubble" id="mic-bubble" aria-hidden="true">
+            <span class="mic-icon">🎤</span>
+            <span class="mic-waves">
+              <span class="mic-wave w1"></span>
+              <span class="mic-wave w2"></span>
+              <span class="mic-wave w3"></span>
+            </span>
+          </div>
+          <button id="btn-stop" class="btn" disabled>
+            <span class="btn-icon">⏹️</span>
+            <span>Stop</span>
+          </button>
+          <button id="btn-ask" class="btn btn-accent">
+            <span class="btn-icon">➡️</span>
+            <span>Ask</span>
+          </button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="response">
+          <label>Response</label>
+          <div id="response-box" class="response-box" aria-live="polite"></div>
+          <div id="typing-indicator" class="typing-indicator" hidden>
+            <span class="ti-dot"></span>
+            <span class="ti-dot"></span>
+            <span class="ti-dot"></span>
+          </div>
+          <div class="response-actions">
+            <button id="btn-speak" class="btn" disabled>
+              <span class="btn-icon">🔈</span>
+              <span>Play Voice</span>
+            </button>
+            <button id="btn-cancel-speak" class="btn" disabled>
+              <span class="btn-icon">🔇</span>
+              <span>Stop Voice</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="support-warning" class="support-warning" hidden>
+          Your browser has limited support for speech features. You can still type your question.
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <small>Made for farmers — bridging knowledge with voice.</small>
+      </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+  </body>
+  </html>
+
+

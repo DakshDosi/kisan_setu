@@ -1,0 +1,12 @@
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.card-shadow {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+              0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, #4ade80 0%, #22c55e 100%);
+}

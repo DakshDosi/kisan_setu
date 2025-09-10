@@ -3,9 +3,19 @@ from geopy.geocoders import Nominatim
 from googletrans import Translator
 from flask_sqlalchemy import SQLAlchemy
 import requests
-import os
 import json
+import numpy as np
+import os
+import base64
+import io
 
+# --- API Keys ---
+# Get a free API key from https://openweathermap.org/api
+WEATHER_API_KEY = "bc2237bac8bb6b6a2f6cc72ed14fc6b33"
+# Get a free API key from https://aistudio.google.com/app/apikey
+GEMINI_API_KEY = "YOUR_GEMINI_API_KEY"
+
+# --- Geocoding Setup ---
 geolocator = Nominatim(user_agent="KisanSetu_App")
 
 app = Flask(__name__)
@@ -27,7 +37,7 @@ class Farmer(db.Model):
     name = db.Column(db.String(100), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     phone = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(200), nullable=False)  # ⚠ hash later for security
+    password = db.Column(db.String(200), nullable=False)
     crop_type = db.Column(db.String(100))
     soil_type = db.Column(db.String(100))
     location = db.Column(db.String(200))
@@ -37,7 +47,7 @@ with app.app_context():
     db.create_all()
 
 # ---------------------------
-# Helper function for geocoding
+# Helper Functions for APIs
 # ---------------------------
 def get_coordinates_from_location(location_name):
     """Converts a location name to latitude and longitude."""
@@ -50,15 +60,45 @@ def get_coordinates_from_location(location_name):
         print(f"Error during geocoding: {e}")
         return None, None
 
+def get_weather_data(lat, lon):
+    """Fetches weather data for given coordinates using OpenWeatherMap API."""
+    if not lat or not lon:
+        return None
+    
+    url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={WEATHER_API_KEY}&units=metric"
+    
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        data = response.json()
+        
+        weather_info = {
+            "temperature": data.get("main", {}).get("temp"),
+            "feels_like": data.get("main", {}).get("feels_like"),
+            "humidity": data.get("main", {}).get("humidity"),
+            "description": data.get("weather", [{}])[0].get("description"),
+            "main_weather": data.get("weather", [{}])[0].get("main"),
+            "wind_speed": data.get("wind", {}).get("speed"),
+            "rain_1h": data.get("rain", {}).get("1h", 0),
+        }
+        
+        return weather_info
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching weather data: {e}")
+        return None
+
+def ask_gemini_api(prompt):
+    """Sends a prompt to the Gemini API and returns the response."""
+    # This is a placeholder. You would use the actual Gemini API here.
+    return "This is a sample response from the AI."
+
 # ---------------------------
 # Routes
 # ---------------------------
 @app.route('/')
 def index():
-    # If the user is not in the session, redirect to the login page
     if 'user_phone' not in session:
         return redirect(url_for('login'))
-    # This page serves as the main AI chat page for logged-in users.
     return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -67,22 +107,29 @@ def login():
         phone = request.form['phone']
         password = request.form['password']
 
-        # Find the farmer by phone number
         farmer = Farmer.query.filter_by(phone=phone).first()
 
-        # Check if farmer exists and password matches
-        # ⚠ In a real application, you would use a password hashing library (e.g., bcrypt)
-        # to compare the hashed password, not the plain text password.
         if farmer and farmer.password == password:
-            # Authentication successful, add user to session and redirect to the index page
             session['user_phone'] = phone
-            return redirect(url_for('index'))
+            return redirect(url_for('profile'))
         else:
-            # Authentication failed, show an error message
             error = "Incorrect phone number or password."
             return render_template('login.html', error=error)
     
     return render_template('login.html')
+
+@app.route('/profile')
+def profile():
+    if 'user_phone' not in session:
+        return redirect(url_for('login'))
+
+    user_phone = session.get('user_phone')
+    farmer = Farmer.query.filter_by(phone=user_phone).first()
+
+    if not farmer:
+        return "User not found", 404
+    
+    return render_template('profile.html', farmer=farmer)
 
 @app.post('/api/ask')
 def api_ask():
@@ -97,28 +144,34 @@ def api_ask():
         detection = translator.detect(question)
         translated = translator.translate(question, dest='en')
 
-        # Get the logged-in user's phone number from the session
         user_phone = session.get('user_phone')
-        
-        # Look up the farmer's location in the database
         farmer = Farmer.query.filter_by(phone=user_phone).first()
         location_name = farmer.location if farmer else None
         
-        # Get coordinates for the farmer's location
-        lat, lon = None, None
-        if location_name:
-            lat, lon = get_coordinates_from_location(location_name)
-            
-        # You can now use these coordinates (lat, lon) to get a weather forecast.
-        # This is where you would make a call to your weather API.
+        lat, lon = get_coordinates_from_location(location_name)
+        
+        weather_info = get_weather_data(lat, lon)
+        
+        if weather_info:
+            weather_text = (
+                f"Current weather in {location_name}: Temperature is {weather_info['temperature']}°C, "
+                f"feels like {weather_info['feels_like']}°C. Wind speed is {weather_info['wind_speed']} m/s. "
+                f"Description: {weather_info['description']}. Rain in last hour: {weather_info['rain_1h']} mm."
+            )
+            ai_prompt = f"The user asked: '{question}'. Here is the current weather information: {weather_text}. Based on this, provide a relevant and helpful response for a farmer."
+        else:
+            ai_prompt = question
+        
+        ai_answer = ask_gemini_api(ai_prompt)
+        
+        translated_answer = translator.translate(ai_answer, dest=detection.lang).text
         
         return jsonify(
-            answer=translated.text,
+            answer=translated_answer,
             original_text=question,
-            detected_lang=detection.lang,
-            translated_text=translated.text,
+            translated_text=ai_answer,
             locale=locale,
-            location_coordinates={"latitude": lat, "longitude": lon} # Added for verification
+            weather_data=weather_info
         )
     except Exception as e:
         return jsonify(error=str(e)), 500
@@ -140,9 +193,6 @@ def translate_text():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-# ---------------------------
-# Farmer Registration (with HTML form)
-# ---------------------------
 @app.route('/register', methods=['GET', 'POST'])
 def register_farmer():
     if request.method == 'POST':
@@ -158,7 +208,7 @@ def register_farmer():
             name=name,
             email=email,
             phone=phone,
-            password=password,  # ⚠ hash later for security
+            password=password,
             crop_type=crop_type,
             soil_type=soil_type,
             location=location
@@ -170,14 +220,15 @@ def register_farmer():
 
     return render_template('registration.html')
 
-# ---------------------------
-# Route to display all farmers (for trial purposes)
-# ---------------------------
 @app.route('/farmers')
 def show_farmers():
     farmers = Farmer.query.all()
     return render_template('farmers.html', farmers=farmers)
 
-# ---------------------------
+@app.route('/logout')
+def logout():
+    session.pop('user_phone', None)
+    return redirect(url_for('login'))
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

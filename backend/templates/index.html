@@ -19,6 +19,7 @@
         </div>
         <ul class="nav-links">
           <li><a href="#chat">AI Chat</a></li>
+          <li><a href="{{ url_for('logout') }}">Logout</a></li>
         </ul>
       </div>
     </nav>
@@ -131,6 +132,4 @@
 
     <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
   </body>
-  </html>
-
-
+</html>

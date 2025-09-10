@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kisan Setu — Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  </head>
+  <body>
+    <nav class="topnav">
+      <div class="nav-inner container">
+        <div class="brand">
+          <span class="brand-logo">🌱</span>
+          <span class="brand-name">Kisan Setu</span>
+        </div>
+        <ul class="nav-links">
+          <li><a href="{{ url_for('profile') }}">Profile</a></li>
+          <li><a href="{{ url_for('index') }}">AI Chat</a></li>
+          <li><a href="{{ url_for('logout') }}" class="btn">Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="container">
+      <section class="hero-profile">
+        <div class="profile-card">
+          <div class="profile-avatar">
+            <span class="user-icon">👤</span>
+          </div>
+          <div class="profile-info">
+            <h1 class="profile-name">{{ farmer.name }}</h1>
+            <p class="profile-location">{{ farmer.location }}</p>
+            <p class="profile-experience">Organic Farmer | 15 years experience</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="current-info">
+        <div class="info-card">
+          <div class="info-icon soil-icon">
+            <span role="img" aria-label="Soil icon">🪨</span>
+          </div>
+          <div class="info-details">
+            <h3 class="info-title">Soil Type</h3>
+            <p><strong>Primary:</strong> Loamy Soil</p>
+            <p><strong>pH Level:</strong> 6.8 (Neutral)</p>
+            <p><strong>Fertility:</strong> High Organic Matter</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon irrigation-icon">
+            <span role="img" aria-label="Irrigation icon">💧</span>
+          </div>
+          <div class="info-details">
+            <h3 class="info-title">Irrigation</h3>
+            <p><strong>Method:</strong> Drip Irrigation</p>
+            <p><strong>Water Source:</strong> Tube Well</p>
+            <p><strong>Coverage:</strong> 5 Acres</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon tools-icon">
+            <span role="img" aria-label="Tools icon">🛠️</span>
+          </div>
+          <div class="info-details">
+            <h3 class="info-title">Tools Owned</h3>
+            <ul>
+              <li>Tractor (Mahindra 575)</li>
+              <li>Rotavator</li>
+              <li>Seed Drill</li>
+              <li>Harvester (Shared)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="current-crops">
+        <h3 class="section-title">Current Crops</h3>
+        <div class="crop-grid">
+          <div class="crop-card">
+            <div class="crop-icon-bg bg-wheat">
+              <span class="crop-icon">🌾</span>
+            </div>
+            <div class="crop-details">
+              <h4>Wheat</h4>
+              <p><strong>Planted:</strong> Nov 15, 2024</p>
+              <p><strong>Area:</strong> 2 Acres</p>
+              <p><strong>Variety:</strong> HD-2967</p>
+              <p><strong>Growth:</strong> 75%</p>
+            </div>
+          </div>
+
+          <div class="crop-card">
+            <div class="crop-icon-bg bg-rice">
+              <span class="crop-icon">🍚</span>
+            </div>
+            <div class="crop-details">
+              <h4>Rice</h4>
+              <p><strong>Planted:</strong> Jun 20, 2024</p>
+              <p><strong>Area:</strong> 1.5 Acres</p>
+              <p><strong>Variety:</strong> Basmati 1121</p>
+              <p><strong>Growth:</strong> 90%</p>
+            </div>
+          </div>
+
+          <div class="crop-card">
+            <div class="crop-icon-bg bg-mustard">
+              <span class="crop-icon">🌾</span>
+            </div>
+            <div class="crop-details">
+              <h4>Mustard</h4>
+              <p><strong>Planted:</strong> Oct 10, 2024</p>
+              <p><strong>Area:</strong> 1 Acre</p>
+              <p><strong>Variety:</strong> Pusa Bold</p>
+              <p><strong>Growth:</strong> 60%</p>
+            </div>
+          </div>
+
+          <div class="crop-card">
+            <div class="crop-icon-bg bg-sugarcane">
+              <span class="crop-icon">🌱</span>
+            </div>
+            <div class="crop-details">
+              <h4>Sugarcane</h4>
+              <p><strong>Planted:</strong> Mar 5, 2024</p>
+              <p><strong>Area:</strong> 0.5 Acres</p>
+              <p><strong>Variety:</strong> Co-0238</p>
+              <p><strong>Growth:</strong> 55%</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="container">
+        <small>Made for farmers — bridging knowledge with voice.</small>
+      </div>
+    </footer>
+  </body>
+</html>

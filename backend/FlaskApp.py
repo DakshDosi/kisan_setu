@@ -1,9 +1,12 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for
-
-# Importing session to track user state
-from flask import session 
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session
+from geopy.geocoders import Nominatim
 from googletrans import Translator
 from flask_sqlalchemy import SQLAlchemy
+import requests
+import os
+import json
+
+geolocator = Nominatim(user_agent="KisanSetu_App")
 
 app = Flask(__name__)
 translator = Translator()
@@ -32,6 +35,20 @@ class Farmer(db.Model):
 # Create tables
 with app.app_context():
     db.create_all()
+
+# ---------------------------
+# Helper function for geocoding
+# ---------------------------
+def get_coordinates_from_location(location_name):
+    """Converts a location name to latitude and longitude."""
+    try:
+        location = geolocator.geocode(location_name)
+        if location:
+            return location.latitude, location.longitude
+        return None, None
+    except Exception as e:
+        print(f"Error during geocoding: {e}")
+        return None, None
 
 # ---------------------------
 # Routes
@@ -79,12 +96,29 @@ def api_ask():
     try:
         detection = translator.detect(question)
         translated = translator.translate(question, dest='en')
+
+        # Get the logged-in user's phone number from the session
+        user_phone = session.get('user_phone')
+        
+        # Look up the farmer's location in the database
+        farmer = Farmer.query.filter_by(phone=user_phone).first()
+        location_name = farmer.location if farmer else None
+        
+        # Get coordinates for the farmer's location
+        lat, lon = None, None
+        if location_name:
+            lat, lon = get_coordinates_from_location(location_name)
+            
+        # You can now use these coordinates (lat, lon) to get a weather forecast.
+        # This is where you would make a call to your weather API.
+        
         return jsonify(
             answer=translated.text,
             original_text=question,
             detected_lang=detection.lang,
             translated_text=translated.text,
             locale=locale,
+            location_coordinates={"latitude": lat, "longitude": lon} # Added for verification
         )
     except Exception as e:
         return jsonify(error=str(e)), 500

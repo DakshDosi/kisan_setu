@@ -206,7 +206,7 @@
     elements.ask.disabled = true;
     try {
       const data = await askBackend(question, locale);
-      const answer = data.answer || '';
+      const answer = data.final_answer || '';
       elements.responseBox.textContent = answer;
       // Trigger expand animation
       elements.responseBox.classList.remove('expand');

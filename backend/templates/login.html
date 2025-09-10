@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kisan Setu — Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}" />
+  </head>
+  <body>
+    <main class="auth-wrap">
+      <div class="brand">
+        <span class="brand-badge">✚</span>
+        <h1 class="brand-name">Kisan Setu</h1>
+        <p class="brand-tag">Smart farming at your fingertips</p>
+      </div>
+
+      <section class="card">
+        <header class="card-head">
+          <span class="icon">👤</span>
+          <h2>Welcome Back</h2>
+          <p class="muted">Sign in to access your farming dashboard</p>
+        </header>
+
+        <div class="tabs" role="tablist">
+          <button id="tab-phone" class="tab active" role="tab" aria-selected="true">☎ Phone</button>
+          <button id="tab-email" class="tab" role="tab" aria-selected="false">✉ Email</button>
+        </div>
+
+        <form id="login-form" class="form" method="post" action="{{ url_for('login') }}">
+          <div class="field" id="field-phone">
+            <label for="phone">Phone Number</label>
+            <input id="phone" name="phone" type="tel" placeholder="Enter your phone number" />
+          </div>
+          <div class="field hidden" id="field-email">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="Enter your email" />
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="password-wrap">
+              <input id="password" name="password" type="password" placeholder="Enter your password" />
+              <button type="button" class="peek" id="peek">👁️</button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn primary" id="btn-login">Sign In</button>
+
+          <div class="aux">
+            <a href="#" class="link">Forgot your password?</a>
+          </div>
+
+          <p class="register">New to Kisan Setu? <a class="link" href="{{ url_for('register_farmer') }}">Create an account</a></p>
+        </form>
+      </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/login.js') }}" defer></script>
+  </body>
+  </html>
+
+

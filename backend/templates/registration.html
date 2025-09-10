@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kisan Setu — Farmer Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+      /* Global Styles */
+      :root {
+        --bg-start: #e8f5e9;
+        --bg-end: #f1f8e9;
+        --card: #f0fdf4;
+        --border: #c8e6c9;
+        --text: #1b5e20;
+        --muted: #5b6b60;
+        --btn: #4caf50;
+        --btn-hover: #388e3c;
+        --shadow: 0 10px 30px rgba(27, 94, 32, .12);
+      }
+
+      * {
+        box-sizing: border-box
+      }
+
+      html,
+      body {
+        height: 100%
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        color: var(--text);
+        background: linear-gradient(180deg, var(--bg-start), var(--bg-end));
+      }
+
+      /* Layout */
+      .container {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 0 16px
+      }
+
+      .topnav {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background: rgba(255, 255, 255, .85);
+        backdrop-filter: saturate(120%) blur(10px);
+        border-bottom: 1px solid var(--border)
+      }
+
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 700
+      }
+
+      .logo {
+        font-size: 20px
+      }
+
+      .card {
+        margin: 24px auto;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: var(--shadow)
+      }
+
+      .header .title {
+        margin: 0 0 4px
+      }
+
+      .header .subtitle {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px
+      }
+
+      /* Form Grid */
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-top: 10px
+      }
+
+      @media (max-width: 720px) {
+        .grid {
+          grid-template-columns: 1fr
+        }
+      }
+
+      .field.full {
+        grid-column: 1 / -1
+      }
+
+      /* Form Fields */
+      .field {
+        display: flex;
+        flex-direction: column
+      }
+
+      .field label {
+        margin-bottom: 6px;
+        color: var(--muted);
+        font-size: 13px
+      }
+
+      .input {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 10px 12px;
+        color: var(--text)
+      }
+
+      .hint {
+        color: var(--muted);
+        font-size: 12px;
+        margin-top: 4px
+      }
+
+      /* Actions and Buttons */
+      .actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 16px
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 16px;
+        border-radius: 999px;
+        border: 1px solid var(--btn-hover);
+        background: var(--btn);
+        color: #f8fff9;
+        cursor: pointer;
+        transition: background .25s ease, transform .1s ease, box-shadow .25s ease;
+        box-shadow: 0 8px 18px rgba(27, 94, 32, .2)
+      }
+
+      .btn:hover {
+        background: var(--btn-hover);
+        transform: translateY(-1px)
+      }
+
+      .btn-secondary {
+        background: #e6f7ea;
+        color: var(--text);
+        border-color: var(--border)
+      }
+
+      .form-status {
+        margin-top: 12px;
+        color: var(--muted)
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="topnav">
+      <div class="container nav-inner">
+        <a href="/" class="brand">
+          <span class="logo">🌱</span>
+          <span>Kisan Setu</span>
+        </a>
+      </div>
+    </nav>
+
+    <main class="container">
+      <section class="card">
+        <header class="header">
+          <h1 class="title">Farmer Registration</h1>
+          <p class="subtitle">Create your profile to get better recommendations.</p>
+        </header>
+
+        <form id="register-form" action="{{ url_for('register_farmer') }}" method="POST" novalidate>
+          <div class="grid">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" class="input" placeholder="Enter your full name" required />
+            </div>
+            <div class="field">
+              <label for="password">Password</label>
+              <input id="password" name="password" type="password" class="input" placeholder="Create a password" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" class="input" placeholder="Enter your email address" required />
+            </div>
+            <div class="field">
+              <label for="crop_type">Crop Type</label>
+              <input id="crop_type" name="crop_type" type="text" class="input" placeholder="e.g., Wheat" />
+            </div>
+            <div class="field">
+              <label for="phone">Phone Number</label>
+              <input id="phone" name="phone" type="tel" class="input" placeholder="e.g., 9876543210" required />
+            </div>
+            <div class="field">
+              <label for="soil_type">Soil Type</label>
+              <input id="soil_type" name="soil_type" type="text" class="input" placeholder="e.g., Alluvial" />
+            </div>
+            <div class="field full">
+              <label for="location">Location</label>
+              <input id="location" name="location" type="text" class="input" placeholder="Village, District, State" />
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="submit" id="submit-btn" class="btn">Register</button>
+            <a class="btn btn-secondary" href="/">Back Home</a>
+          </div>
+          <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

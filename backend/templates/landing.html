@@ -6,15 +6,13 @@
     <title>Kisan Setu - किसान सेतु</title>
     <meta name="description" content="Kisan Setu - Bridging farmers with technology for better agricultural practices">
     
-    <!-- Preload critical fonts -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" as="style">
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" as="style">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap">
     
-    <link rel="stylesheet" href="static/css/landing.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
+        <nav class="nav">
         <div class="nav-container">
             <div class="nav-logo">Kisan Setu</div>
             <div class="nav-links">
@@ -27,8 +25,7 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
+        <section id="home" class="hero">
         <div class="hero-background">
             <div class="floating-particles">
                 <div class="particle particle-1"></div>
@@ -51,8 +48,7 @@
         </div>
     </section>
 
-    <!-- What is Kisan Setu Section -->
-    <section id="about" class="what-is-section">
+        <section id="about" class="what-is-section">
         <div class="what-is-container">
             <div class="what-is-card">
                 <div class="what-is-icons">
@@ -82,8 +78,7 @@
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="features" class="features-section">
+        <section id="features" class="features-section">
         <div class="features-container">
             <h2 class="features-title">Key Features</h2>
             <div class="features-grid">
@@ -125,7 +120,6 @@
                     <div class="feature-icon">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M21 16V8C20.9996 7.64927 20.9071 7.30481 20.7315 7.00116C20.556 6.69751 20.3037 6.44536 20 6.27L13 2.27C12.696 2.09446 12.3511 2.00205 12 2.00205C11.6489 2.00205 11.304 2.09446 11 2.27L4 6.27C3.69626 6.44536 3.44398 6.69751 3.26846 7.00116C3.09294 7.30481 3.00036 7.64927 3 8V16C3.00036 16.3507 3.09294 16.6952 3.26846 16.9988C3.44398 17.3025 3.69626 17.5546 4 17.73L11 21.73C11.304 21.9055 11.6489 21.9979 12 21.9979C12.3511 21.9979 12.696 21.9055 13 21.73L20 17.73C20.3037 17.5546 20.556 17.3025 20.7315 16.9988C20.9071 16.6952 20.9996 16.3507 21 16Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
                     </div>
                     <h3 class="feature-title">Sustainable Practices</h3>
                     <p class="feature-description">Learn and implement eco-friendly farming techniques that protect the environment while maximizing your productivity.</p>
@@ -159,8 +153,7 @@
         </div>
     </section>
 
-    <!-- Conversation Mockup Section -->
-    <section class="conversation-section">
+        <section class="conversation-section">
         <div class="conversation-container">
             <h2 class="conversation-title">Experience the Future of Farming</h2>
             <div class="mockup-wrapper">
@@ -188,8 +181,7 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
+        <footer class="footer">
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-section">
@@ -220,6 +212,6 @@
         </div>
     </footer>
 
-    <script src="../static/js/landing.js"></script>
+        <script src="{{ url_for('static', filename='js/landing.js') }}"></script>
 </body>
 </html>

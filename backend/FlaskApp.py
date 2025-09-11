@@ -96,10 +96,8 @@ def ask_gemini_api(prompt):
 # Routes
 # ---------------------------
 @app.route('/')
-def index():
-    if 'user_phone' not in session:
-        return redirect(url_for('login'))
-    return render_template('index.html')
+def landing():
+    return render_template('landing.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -130,6 +128,12 @@ def profile():
         return "User not found", 404
     
     return render_template('profile.html', farmer=farmer)
+
+@app.route('/index')
+def index():
+    if 'user_phone' not in session:
+        return redirect(url_for('login'))
+    return render_template('index.html')
 
 @app.post('/api/ask')
 def api_ask():
